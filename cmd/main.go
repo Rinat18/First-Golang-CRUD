@@ -15,14 +15,7 @@ func main() {
 		log.Fatalf("error initializing configs: %s", err.Error())
 	}
 
-	// Подключение к базе данных
-	db, err := setupDBConnection() // Предположим, что у вас есть функция setupDBConnection, которая возвращает *sql.DB
-	if err != nil {
-		log.Fatalf("failed to connect to database: %s", err.Error())
-	}
-
-	// Создание экземпляра репозитория с передачей подключения к базе данных
-	repos := repository.NewRepository(db)
+	repos := repository.NewRepository()
 	services := service.NewService(repos)
 	handlers := handler.NewHandler(services)
 
@@ -33,7 +26,7 @@ func main() {
 }
 
 func initConfig() error {
-	viper.AddConfigPath("configs")
-	viper.SetConfigName("config")
-	return viper.ReadInConfig()
+	 viper.AddConfigPath("configs")
+	 viper.SetConfigName("config")
+	 return viper.ReadInConfig()
 }
